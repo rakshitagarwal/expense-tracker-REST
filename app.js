@@ -8,9 +8,9 @@ function saveToLocalStorage(event) {
     Breif,
     List,
   };
-  axios.post("https://crudcrud.com/api/88c3965a21f34da2b3d30ea15b58a8e2/ExpenseTrackerApp",obj)
+  axios.post("https://crudcrud.com/api/a9e2d72d0a8344e6b7ecf39d3076b701/ExpenseTrackerApp",obj)
     .then((res) => {
-      showNewUserOnScreen(res.data);
+      showNewExpenseOnScreen(res.data);
       console.log(res);
     })
     .catch((error) => console.log(error));
@@ -18,43 +18,43 @@ function saveToLocalStorage(event) {
 window.addEventListener("DOMContentLoaded", () => {
   const localStorageObj = localStorage;
   const localstoragekeys = Object.keys(localStorageObj);
-  axios.get("https://crudcrud.com/api/88c3965a21f34da2b3d30ea15b58a8e2/ExpenseTrackerApp")
+  axios.get("https://crudcrud.com/api/a9e2d72d0a8344e6b7ecf39d3076b701/ExpenseTrackerApp")
     .then((res) => {
       console.log(res);
       for (var i = 0; i < res.data.length; i++) {
-        showNewUserOnScreen(res.data[i]);
+        showNewExpenseOnScreen(res.data[i]);
       }
     })
     .catch((error) => console.log(error));
 });
 
-function showNewUserOnScreen(User) {
+function showNewExpenseOnScreen(Expense) {
   const parentNode = document.getElementById("onSubmit");
 
-  const childHTML = `<li id=${User._id}>${User.Amount}-${User.Breif}-${User.List}
-                       <button onClick=deleteUser('${User._id}')>DeleteUser</button>
-                       <button onClick=editUserDetails('${User.Amount}','${User.Breif}','${User.List}','${User._id}')>EditUser</button>
+  const childHTML = `<li id=${Expense._id}>${Expense.Amount} - ${Expense.Breif} - ${Expense.List}
+                       <button onClick=deleteExpense('${Expense._id}')>Delete Expense</button>
+                       <button onClick=editExpenseDetails('${Expense.Amount}','${Expense.Breif}','${Expense.List}','${Expense._id}')>Edit Expense</button>
                        </li>`;
   parentNode.innerHTML = parentNode.innerHTML + childHTML;
 }
 
-function editUserDetails(Amount, Breif, List, userId) {
+function editExpenseDetails(Amount, Breif, List, expenseId) {
   document.getElementById("Amount").value = Amount;
   document.getElementById("Description").value = Breif;
   document.getElementById("Category").value = List;
-  deleteUser(userId);
+  deleteExpense(expenseId);
 }
 
-function deleteUser(userId) {
-  axios.delete(`https://crudcrud.com/api/88c3965a21f34da2b3d30ea15b58a8e2/ExpenseTrackerApp/${userId}`)
+function deleteExpense(expenseId) {
+  axios.delete(`https://crudcrud.com/api/a9e2d72d0a8344e6b7ecf39d3076b701/ExpenseTrackerApp/${expenseId}`)
     .then((res) => {
-      removeUserFromScreen(userId);
+      removeExpenseFromScreen(expenseId);
     })
     .catch((error) => console.log(error));
 }
 
-function removeUserFromScreen(userId) {
+function removeExpenseFromScreen(expenseId) {
   const parentNode = document.getElementById("onSubmit");
-  const childNodeToBeDeleted = document.getElementById(userId);
+  const childNodeToBeDeleted = document.getElementById(expenseId);
   parentNode.removeChild(childNodeToBeDeleted);
 }
