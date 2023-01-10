@@ -8,7 +8,7 @@ function saveToLocalStorage(event) {
     Breif,
     List,
   };
-  axios.post("https://crudcrud.com/api/a9e2d72d0a8344e6b7ecf39d3076b701/ExpenseTrackerApp",obj)
+  axios.post("https://crudcrud.com/api/49d000fcb46a48f68504d87f0d977683/ExpenseTrackerApp",obj)
     .then((res) => {
       showNewExpenseOnScreen(res.data);
       console.log(res);
@@ -17,8 +17,7 @@ function saveToLocalStorage(event) {
 }
 window.addEventListener("DOMContentLoaded", () => {
   const localStorageObj = localStorage;
-  const localstoragekeys = Object.keys(localStorageObj);
-  axios.get("https://crudcrud.com/api/a9e2d72d0a8344e6b7ecf39d3076b701/ExpenseTrackerApp")
+  axios.get("https://crudcrud.com/api/49d000fcb46a48f68504d87f0d977683/ExpenseTrackerApp")
     .then((res) => {
       console.log(res);
       for (var i = 0; i < res.data.length; i++) {
@@ -32,9 +31,9 @@ function showNewExpenseOnScreen(Expense) {
   const parentNode = document.getElementById("onSubmit");
 
   const childHTML = `<li id=${Expense._id}>${Expense.Amount} - ${Expense.Breif} - ${Expense.List}
-                       <button onClick=deleteExpense('${Expense._id}')>Delete Expense</button>
-                       <button onClick=editExpenseDetails('${Expense.Amount}','${Expense.Breif}','${Expense.List}','${Expense._id}')>Edit Expense</button>
-                       </li>`;
+                         <button onClick=deleteExpense('${Expense._id}')>Delete Expense</button>
+                         <button onClick=editExpenseDetails('${Expense.Amount}','${Expense.Breif}','${Expense.List}','${Expense._id}')>Edit Expense</button>
+                         </li>`;
   parentNode.innerHTML = parentNode.innerHTML + childHTML;
 }
 
@@ -46,7 +45,7 @@ function editExpenseDetails(Amount, Breif, List, expenseId) {
 }
 
 function deleteExpense(expenseId) {
-  axios.delete(`https://crudcrud.com/api/a9e2d72d0a8344e6b7ecf39d3076b701/ExpenseTrackerApp/${expenseId}`)
+  axios.delete(`https://crudcrud.com/api/49d000fcb46a48f68504d87f0d977683/ExpenseTrackerApp/${expenseId}`)
     .then((res) => {
       removeExpenseFromScreen(expenseId);
     })
